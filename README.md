@@ -5,7 +5,7 @@
 It's a command line utility that will do the following:
 
 * Every 1 second, print out the current time as follows:
-    The current time is: 2017-03-22T22:32:29Z
+    The current time is: 2017-03-22 22:32:29 -0400
 
 * When the user presses enter, the program will stop printing timestamps, and the user will be prompted to enter a phone number:
     Please enter a valid phone number: 
