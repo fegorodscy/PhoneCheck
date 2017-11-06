@@ -1,16 +1,16 @@
 class Watch
-  def initialize(time:)
+  def initialize(time:, msg:)
     @time = time
-    @thread = create_thread(time)
+    @thread = create_thread(time, msg)
   end
 
   def start
-    @thread[:stop] = false
+    @should_stop = false
     @thread.wakeup
   end
 
   def pause
-    @thread[:stop] = true
+    @should_stop = true
   end
 
   def stop
@@ -19,13 +19,13 @@ class Watch
 
   private
 
-  def create_thread(time)
+  def create_thread(time, msg)
     every time do
-      if Thread.current[:stop]
+      if @should_stop
         Thread.stop
       end
 
-      print "The current time is: #{Time.now}\r\n"
+      print "#{msg}: #{Time.now}\r\n"
     end
   end
 end

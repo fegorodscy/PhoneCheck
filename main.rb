@@ -10,9 +10,9 @@ require_relative 'lib/watch'
 include Gorodscy::TimedLoop
 include Gorodscy::Phone
 
-watch = Watch.new(time: 1.second)
+watch = Watch.new(time: 1.second, msg: "The current time is")
 
-def ask_phone_number
+def validate_phone_number
   print "Please enter a valid phone number: "
   phone = Curses.getstr
 
@@ -27,7 +27,7 @@ t = Thread.new do
     when 10, 13 # Key Enter/Return
       watch.pause
 
-      ask_phone_number
+      validate_phone_number
 
       watch.start
     when "q"
