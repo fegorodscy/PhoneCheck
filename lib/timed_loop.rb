@@ -1,8 +1,13 @@
 module Gorodscy::TimedLoop
-  def every seconds
+  def every seconds, condition
     Thread.new do
       loop do
         sleep(seconds)
+
+        unless condition.call
+          Thread.stop
+        end
+
         yield
       end
     end

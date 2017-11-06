@@ -2,15 +2,16 @@ class Watch
   def initialize(time:, msg:)
     @time = time
     @thread = create_thread(time, msg)
+    @should_run = true
   end
 
   def start
-    @should_stop = false
+    @should_run = true
     @thread.wakeup
   end
 
   def pause
-    @should_stop = true
+    @should_run = false
   end
 
   def stop
@@ -20,12 +21,8 @@ class Watch
   private
 
   def create_thread(time, msg)
-    every time do
-      if @should_stop
-        Thread.stop
-      end
+    condition = ->{ @should_run }
 
-      print "#{msg}: #{Time.now}\r\n"
-    end
+    every(time, condition) { print "#{msg}: #{Time.now}\r\n" }
   end
 end
